@@ -1,8 +1,10 @@
+import {models} from '../../models'
+
 const get = async (req, res, next) => {
   try {
-    return res.json({
-      message: "get from user!"
-    })
+    const users = await models.User.findAll()
+
+    return res.status(200).json(users)
   } catch (e) {
     next(e)
   }

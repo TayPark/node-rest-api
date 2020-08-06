@@ -5,9 +5,9 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 const baseDBSetting = {
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
+  username: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS,
+  host: process.env.DB_HOST || 'localhost',
   timezone: '+09:00',
   dialect: 'mysql',
   pool: {
