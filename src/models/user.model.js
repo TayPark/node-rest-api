@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     uuid: {
       allowNull: false,
       unique: true,
-      type: 'BINARY(16)',
-      defaultValue: () => Buffer(uuid(), 'hex'),
+      type: 'BINARY(32)',
+      defaultValue: () => Buffer.from(uuid(), 'hex'),
       get: function () {
         return Buffer.from(this.getDataValue('uuid')).toString('hex')
       }

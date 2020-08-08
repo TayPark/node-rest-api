@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   require('@babel/register')
 }
 
@@ -13,7 +13,7 @@ const baseDBSetting = {
   pool: {
     max: 100,
     min: 0,
-    idel: 10000
+    idle: 10000
   },
   define: {
     charset: 'utf8mb4',
@@ -27,7 +27,7 @@ module.exports = {
     database: process.env.DB_NAME,
     logging: false
   }, baseDBSetting),
-  
+
   development: Object.assign({
     database: process.env.DB_DEV,
     logging: console.log

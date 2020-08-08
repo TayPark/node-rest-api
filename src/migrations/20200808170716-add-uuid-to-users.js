@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -7,7 +7,7 @@ module.exports = {
       'uuid', {
         allowNull: false,
         unique: true,
-        type: 'BINARY(16)',
+        type: 'BINARY(32)',
         after: 'id'
       },
     )
@@ -19,4 +19,4 @@ module.exports = {
       'uuid',
     )
   }
-};
+}
