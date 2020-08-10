@@ -28,17 +28,18 @@ describe('Login test', () => {
       email: userData.email,
       password: userData.password
     })
+    
     jwtToken = res.body.data.token
-
+    
     expect(res.statusCode).toBe(200)
     expect(jwtToken).toBeTruthy()
-
+    
     const payload = jwt.verify(jwtToken, process.env.JWT_SECRET)
     expect(userData.email).toBe(payload.email)
-  
+    
     const user = await userRepo.find(payload.uuid)
     expect(userData.email).toBe(user.email)
-
+    
     console.log(payload)
   })
 

@@ -8,11 +8,11 @@ const get = async (req, res, next) => {
       const user = await userRepo.find(req.params.uuid)
 
       if (!user) {
-        throw (createError(httpStatus.NOT_FOUND, `Can\'t find user ${req.params.uuid}...`))
+        throw (createError(404, `Can\'t find user ${req.params.uuid}...`))
       }
 
       return res
-        .status(httpStatus.OK)
+        .status(200)
         .json(user.toWeb())
     } else {
       const users = await userRepo.all()

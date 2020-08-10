@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import {
   uuid
 } from '../utils/uuid'
+import userCache from '../caches/user.cache'
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -44,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
       user.password = await bcrypt.hash(user.password, salt);
     }
   })
+
+  // Save after creation
+  User.afterSave((user, options) => userCache.store(user))
 
   // print
 

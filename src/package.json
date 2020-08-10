@@ -15,6 +15,7 @@
     "@babel/polyfill": "^7.10.4",
     "babel-core": "^6.26.3",
     "bcrypt": "^5.0.0",
+    "bluebird": "^3.7.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -29,6 +30,7 @@
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
     "prettier-eslint": "^11.0.0",
+    "redis": "^3.0.2",
     "sequelize": "^6.3.4",
     "sequelize-cli": "^6.2.0",
     "uuid4": "^2.0.2"

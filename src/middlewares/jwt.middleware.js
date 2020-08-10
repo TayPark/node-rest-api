@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors';
-import httpStatus from 'http-status';
 import userRepo from '../repositories/user.repository'
+import userCache from '../caches/user.cache'
 
 export default async (req, res, next) => {
   try {
@@ -14,17 +14,17 @@ export default async (req, res, next) => {
         process.env.JWT_SECRET,
         (err, payload) => {
           if (err) {
-            return next(createError(httpStatus.UNAUTHORIZED, 'Token is unavailable...'))
+            return next(createError(401, 'Token is unavailable...'))
           }
 
           uuid = payload.uuid
         }
       )
 
-      const user = await userRepo.find(uuid)
+      const user = await userCache.find(uuid)
 
       if (!user) {
-        return next(createError(httpStatus.NOT_FOUND, 'No user...'))
+        return next(createError(404, 'No user...'))
       }
 
       req.user = user;

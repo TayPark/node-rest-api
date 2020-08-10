@@ -2,6 +2,7 @@ import httpStatus from 'http-status'
 import createError from 'http-errors'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import userCache from '../../caches/user.cache'
 import userRepo from '../../repositories/user.repository'
 import response from '../../utils/response'
 
@@ -9,16 +10,16 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body
 
-    const user = await userRepo.findByEmail(email)
+    const user = await userCache.findByEmail(email)
 
     if (!user) {
-      return next(createError(httpStatus.NOT_FOUND, 'Can\'t find user...'))
+      return next(createError(404, 'Can\'t find user...'))
     }
 
     const match = await bcrypt.compare(password, user.password)
 
     if (!match) {
-      return next(createError(httpStatus.NOT_FOUND, 'Check password...'))
+      return next(createError(404, 'Check password...'))
     }
 
     const payload = { 
