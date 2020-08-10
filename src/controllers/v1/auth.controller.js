@@ -26,10 +26,8 @@ const login = async (req, res, next) => {
       uuid: user.uuid
     }
 
-    const ttl = process.env.JWT_TTL
-
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: ttl
+      expiresIn: process.env.JWT_TTL
     })
 
     return response(res, { token })
@@ -40,7 +38,7 @@ const login = async (req, res, next) => {
 
 const tokenTest = async (req, res, next) => {
   try {
-    return res(res, req.user)
+    return response(res, req.user)
   } catch (e) {
     next(e)
   }

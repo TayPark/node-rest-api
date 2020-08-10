@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import userRepo from '../repositories/user.repository'
 import createError from 'http-errors';
 import httpStatus from 'http-status';
+import userRepo from '../repositories/user.repository'
 
 export default async (req, res, next) => {
   try {
