@@ -13,11 +13,11 @@ const get = async (req, res, next) => {
 
       return res
         .status(httpStatus.OK)
-        .json(user)
+        .json(user.toWeb())
     } else {
       const users = await userRepo.all()
 
-      return res.json(users)
+      return res.status(200).json( users.map( user => user.toWeb() ) )
     }
   } catch (e) {
     next(e)

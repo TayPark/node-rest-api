@@ -1,5 +1,6 @@
 'use strict'
 
+import bcrypt from 'bcrypt'
 import {
   uuid
 } from '../utils/uuid'
@@ -37,6 +38,24 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   // hooks
+  User.beforeSave(async (user, options) => {
+    if (user.changed('password')) {
+      const salt = await bcrypt.genSalt();
+      user.password = await bcrypt.hash(user.password, salt);
+    }
+  })
+
+  // print
+
+  User.prototype.toWeb = function () {
+    const values = this.get()
+
+    // remove private data
+    delete values.id
+    delete values.password
+
+    return values
+  }
 
   return User
 }

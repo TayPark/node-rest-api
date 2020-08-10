@@ -47,4 +47,11 @@ describe("GET: /v1/users", () => {
 
     expect(res.statusCode).toBe(404);
   });
+
+  test("Not to get privacy data", async () => {
+    let res = await request(app).get(`/v1/users/${user.uuid}`);
+
+    expect(res.body.password).toBe(undefined)
+    expect(res.body.id).toBe(undefined)
+  });
 });

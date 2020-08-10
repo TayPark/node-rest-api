@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --exec babel-node --presets @babel/preset-env",
-    "test": "NODE_ENV=test npm run db:init && NODE_ENV=test ./node_modules/.bin/jest tests --coverage",
+    "test": "NODE_ENV=test npm run migrate:reset && NODE_ENV=test npm run migrate && NODE_ENV=test ./node_modules/.bin/jest tests --coverage",
+    "test:init": "NODE_ENV=test npm run db:init && NODE_ENV=test ./node_modules/.bin/jest tests --coverage",
     "db:init": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
     "migrate": "sequelize db:migrate",
     "migrate:reset": "sequelize db:migrate:undo:all",
@@ -13,6 +14,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
     "babel-core": "^6.26.3",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -21,6 +23,7 @@
     "http-errors": "~1.6.3",
     "http-status": "^1.4.2",
     "jest": "^26.2.2",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
