@@ -5,6 +5,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan';
 import response from './utils/response'
+import jwtMiddleware from './middlewares/jwt.middleware'
 
 import v1Router from './routes/v1'
 
@@ -14,6 +15,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(jwtMiddleware)
 
 app.use('/v1', v1Router);
 

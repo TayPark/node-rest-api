@@ -21,13 +21,14 @@ const login = async (req, res, next) => {
       return next(createError(httpStatus.NOT_FOUND, 'Check password...'))
     }
 
-    const payload = { message: 'Access granted '}
+    const payload = { 
+      email: user.email,
+      uuid: user.uuid
+    }
 
-    const secret = 'secret'
+    const ttl = process.env.JWT_TTL
 
-    const ttl = 60 * 60 * 1000
-
-    const token = jwt.sign(payload, secret, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: ttl
     })
 
@@ -37,6 +38,12 @@ const login = async (req, res, next) => {
   }
 }
 
-export {
-  login
+const tokenTest = async (req, res, next) => {
+  try {
+    return res(res, req.user)
+  } catch (e) {
+    next(e)
+  }
 }
+
+export { login, tokenTest };
