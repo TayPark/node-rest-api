@@ -12,7 +12,7 @@ afterAll( () => models.sequelize.close() )
 
 describe('Login test', () => {
   let userData
-  let token
+  let jwtToken
 
   beforeAll( async () => {
     userData = {
@@ -28,11 +28,12 @@ describe('Login test', () => {
       email: userData.email,
       password: userData.password
     })
+    jwtToken = res.body.data.token
 
     expect(res.statusCode).toBe(200)
-    expect(res.body.data.token).toBeTruthy()
+    expect(jwtToken).toBeTruthy()
 
-    const payload = jwt.verify(res.body.data.token, process.env.JWT_SECRET)
+    const payload = jwt.verify(jwtToken, process.env.JWT_SECRET)
     expect(userData.email).toBe(payload.email)
   
     const user = await userRepo.find(payload.uuid)
@@ -46,8 +47,6 @@ describe('Login test', () => {
       email: 'joker@email.com',
       password: 'hahaha'
     })
-
-    console.log(res.body.data.token)
 
     expect(res.statusCode).toBe(404)
     expect(res.body.data.message).toBe('Can\'t find user...')
@@ -64,10 +63,9 @@ describe('Login test', () => {
   })
 
   test('Token auth | 200', async () => {
-    let res = await request(app).get('/v1/auth/token').set('Authorization', `Bearer ${token}`)
-
+    let res = await request(app).get('/v1/auth/tokenTest').set('Authorization', `Bearer ${jwtToken}`)
+    
+    expect(console.log(res.body.data))
     expect(res.body.data.email).toBe(userData.email)
-
-    console.log(res.body.data)
   })
 })

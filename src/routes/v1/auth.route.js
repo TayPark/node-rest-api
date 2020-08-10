@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.route('/login').post(login)
 
-router.route('/token').get(tokenTest)
+router.route('/tokenTest').get(tokenTest)
 
 export default router

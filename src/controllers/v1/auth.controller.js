@@ -40,7 +40,7 @@ const login = async (req, res, next) => {
 
 const tokenTest = async (req, res, next) => {
   try {
-    return res(res, req.user)
+    return response(res, req.user)
   } catch (e) {
     next(e)
   }
