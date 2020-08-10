@@ -37,7 +37,7 @@ describe('Login test', () => {
     })
 
     expect(res.statusCode).toBe(404)
-    expect(res.body.message).toBe('Can\'t find user...')
+    expect(res.body.data.message).toBe('Can\'t find user...')
   })
 
   test('Wrong password login | 404', async () => {
@@ -47,6 +47,6 @@ describe('Login test', () => {
     })
 
     expect(res.statusCode).toBe(404)
-    expect(res.body.message).toBe('Check password...')
+    expect(res.body.data.message).toBe('Check password...')
   })
 })

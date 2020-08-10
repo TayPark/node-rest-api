@@ -4,6 +4,7 @@ import createError from 'http-errors'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan';
+import response from './utils/response'
 
 import v1Router from './routes/v1'
 
@@ -32,9 +33,9 @@ app.use((err, req, res, next) => {
   res.locals.error = process.env.NODE_ENV === 'development' ? apiError : {}
   
   // render error
-  return res.status(apiError.status).json({
+  return response(res, {
     message: apiError.message
-  })
+  }, apiError.status)
 });
 
 
