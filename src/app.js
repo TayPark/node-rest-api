@@ -18,11 +18,9 @@ import v1Router from './routes/v1'
 const app = express()
 let Sentry
 // Sentry setting
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'production') {
   Sentry = require('@sentry/node')
   Sentry.init({ dsn: process.env.SENTRY_DSN })
-
-  app.use(Sentry.Handlers.errorHandler())
 }
 
 app.use(morgan('combined', { stream }));
@@ -48,7 +46,7 @@ app.use((err, req, res, next) => {
 
   if(!err.status) apiError = createError(err)
 
-  if (process.env.NODE_ENV === 'test') {
+  if (process.env.NODE_ENV === 'production') {
     const errObj = {
       req: {
         headers: req.headers,
